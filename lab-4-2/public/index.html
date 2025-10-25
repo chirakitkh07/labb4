@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🍝 Western Food API Demo</title>
+  <style>
+    :root {
+      --primary: #007bff;
+      --primary-dark: #0056b3;
+      --bg: #f9fafc;
+      --card-bg: #ffffff;
+      --text: #333;
+      --radius: 10px;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: var(--bg);
+      color: var(--text);
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--primary-dark);
+      margin-bottom: 1rem;
+    }
+
+    .endpoint {
+      background: var(--card-bg);
+      padding: 1rem 1.5rem;
+      border-radius: var(--radius);
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      margin-bottom: 1.5rem;
+    }
+
+    .endpoint h3 {
+      margin-top: 0;
+      color: #444;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    button {
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      padding: 10px 16px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+    }
+
+    button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    #result {
+      background: #1e1e1e;
+      color: #f1f1f1;
+      padding: 15px 20px;
+      border-radius: var(--radius);
+      white-space: pre-wrap;
+      font-family: "Consolas", monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      overflow-x: auto;
+    }
+
+    .loading {
+      color: #999;
+      font-style: italic;
+    }
+
+    @media (max-width: 600px) {
+      button {
+        flex: 1 1 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <h1>🍝 Western Food API</h1>
+
+  <div class="endpoint">
+    <h3>ทดสอบ API Endpoints</h3>
+    <div class="buttons">
+      <button onclick="testAPI('/api/foods')">ดูเมนูทั้งหมด</button>
+      <button onclick="testAPI('/api/foods?search=pasta')">ค้นหา "pasta"</button>
+      <button onclick="testAPI('/api/foods?category=Pizza')">หมวด Pizza</button>
+      <button onclick="testAPI('/api/foods?category=Salad')">หมวด Salad</button>
+      <button onclick="testAPI('/api/foods?vegetarian=true')">เมนูมังสวิรัติ (Vegetarian)</button>
+      <button onclick="testAPI('/api/foods/1')">เมนู ID 1</button>
+      <button onclick="testAPI('/api/stats')">สถิติ</button>
+    </div>
+  </div>
+
+  <div id="result">💡 คลิกปุ่มด้านบนเพื่อทดสอบ API</div>
+
+  <script>
+    async function testAPI(endpoint) {
+      const resultDiv = document.getElementById("result");
+      resultDiv.innerHTML = `<span class="loading">⏳ กำลังโหลดข้อมูลจาก ${endpoint} ...</span>`;
+
+      try {
+        const res = await fetch(endpoint, { headers: { "Accept": "application/json" } });
+
+        if (!res.ok) {
+          throw new Error(`HTTP ${res.status} ${res.statusText}`);
+        }
+
+        const data = await res.json();
+        resultDiv.textContent = JSON.stringify(data, null, 2);
+      } catch (err) {
+        resultDiv.innerHTML = `<span style="color:#ff4d4f;">❌ Error: ${err.message}</span>`;
+      }
+    }
+  </script>
+</body>
+</html>

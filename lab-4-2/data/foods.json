@@ -1,0 +1,62 @@
+[
+  {
+    "id": 1,
+    "name": "Spaghetti Carbonara",
+    "category": "Pasta",
+    "price": 220,
+    "description": "Creamy pasta with bacon and parmesan cheese",
+    "spicyLevel": 1,
+    "vegetarian": false,
+    "available": true,
+    "cookingTime": 20,
+    "ingredients": ["Spaghetti", "Bacon", "Egg", "Parmesan Cheese", "Cream"]
+  },
+  {
+    "id": 2,
+    "name": "Margherita Pizza",
+    "category": "Pizza",
+    "price": 250,
+    "description": "Classic Italian pizza with tomato sauce, mozzarella, and basil",
+    "spicyLevel": 0,
+    "vegetarian": true,
+    "available": true,
+    "cookingTime": 25,
+    "ingredients": ["Pizza Dough", "Tomato Sauce", "Mozzarella", "Basil", "Olive Oil"]
+  },
+  {
+    "id": 3,
+    "name": "Beef Steak",
+    "category": "Main Course",
+    "price": 480,
+    "description": "Grilled beef steak served with mashed potatoes and vegetables",
+    "spicyLevel": 1,
+    "vegetarian": false,
+    "available": true,
+    "cookingTime": 30,
+    "ingredients": ["Beef", "Potato", "Butter", "Garlic", "Black Pepper"]
+  },
+  {
+    "id": 4,
+    "name": "Caesar Salad",
+    "category": "Salad",
+    "price": 180,
+    "description": "Fresh romaine lettuce with Caesar dressing and croutons",
+    "spicyLevel": 0,
+    "vegetarian": true,
+    "available": true,
+    "cookingTime": 10,
+    "ingredients": ["Romaine Lettuce", "Croutons", "Parmesan", "Caesar Dressing", "Lemon"]
+  },
+  {
+    "id": 5,
+    "name": "Fish and Chips",
+    "category": "Main Course",
+    "price": 230,
+    "description": "Crispy fried fish with french fries and tartar sauce",
+    "spicyLevel": 1,
+    "vegetarian": false,
+    "available": true,
+    "cookingTime": 20,
+    "ingredients": ["White Fish", "Potato", "Flour", "Oil", "Tartar Sauce"]
+  }
+]

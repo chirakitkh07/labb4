@@ -1,0 +1,291 @@
+/* ========== Base Reset (ปรับปรุง) ========== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+:where(html, body) {
+  margin: 0;
+  padding: 0;
+}
+:root {
+  /* Palette */
+  --primary: #6366f1;        /* indigo-500 */
+  --primary-600: #4f46e5;    /* indigo-600 */
+  --primary-700: #4338ca;    /* indigo-700 */
+  --mint: #4fd1c5;
+  --success: #22c55e;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+
+  --bg: #0b1020;             /* ใช้เป็นเงา/พื้นหลังลึก */
+  --bg-grad-1: #6a7bf7;
+  --bg-grad-2: #8b5cf6;
+  --card: #ffffff;
+  --text: #1f2937;
+  --muted: #6b7280;
+  --border: #e5e7eb;
+  --radius: 14px;
+  --shadow-md: 0 10px 30px rgba(2, 6, 23, 0.12);
+  --shadow-lg: 0 16px 40px rgba(2, 6, 23, 0.16);
+
+  color-scheme: light dark;  /* ให้เบราว์เซอร์ช่วยเรื่องฟอร์ม/สกอลบาร์ */
+}
+
+/* ธีมมืดแบบกำหนดเอง */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --card: #0f172a;   /* slate-900 */
+    --text: #e5e7eb;   /* slate-200 */
+    --muted: #94a3b8;  /* slate-400 */
+    --border: #1f2937; /* gray-800 */
+  }
+}
+
+/* สลับธีมด้วย data-theme="dark" บน <html> หรือ .container */
+[data-theme="dark"] {
+  --card: #0f172a;
+  --text: #e5e7eb;
+  --muted: #94a3b8;
+  --border: #1f2937;
+}
+
+/* ========== Page ========== */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.65;
+  color: var(--text);
+  min-height: 100vh;
+  /* gradient ที่นุ่มขึ้น + มี layer */
+  background:
+    radial-gradient(1200px 800px at 100% -10%, rgba(255,255,255,0.25), transparent 55%),
+    radial-gradient(900px 700px at -10% 110%, rgba(255,255,255,0.15), transparent 50%),
+    linear-gradient(135deg, var(--bg-grad-1) 0%, var(--bg-grad-2) 100%);
+}
+
+/* ลดการเคลื่อนไหวสำหรับผู้ใช้ที่ไม่ต้องการ motion */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}
+
+/* ========== Layout ========== */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 32px;
+  color: #fff;
+}
+
+header h1 {
+  font-size: clamp(1.8rem, 2.2vw + 1rem, 2.6rem);
+  margin-bottom: 10px;
+  letter-spacing: .3px;
+  text-shadow: 0 1px 0 rgba(0,0,0,.2);
+}
+
+.forms-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+  margin-bottom: 30px;
+}
+
+@media (max-width: 768px) {
+  .forms-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========== Card / Section ========== */
+.form-section,
+.api-section {
+  background: color-mix(in oklab, var(--card) 90%, transparent);
+  backdrop-filter: saturate(120%) blur(6px);
+  border: 1px solid var(--border);
+  padding: 28px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-md);
+  transition: box-shadow .25s ease, transform .2s ease, background .25s ease;
+}
+
+.form-section:hover,
+.api-section:hover {
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.form-section h2,
+.api-section h2 {
+  color: var(--primary-700);
+  margin-bottom: 18px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 10px;
+  letter-spacing: .2px;
+}
+
+/* ========== Form Controls ========== */
+.form-group { margin-bottom: 18px; }
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1.8px solid var(--border);
+  border-radius: 10px;
+  font-size: 16px;
+  background: color-mix(in oklab, var(--card) 96%, transparent);
+  color: var(--text);
+  transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+  accent-color: var(--primary);
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="tel"]::placeholder,
+textarea::placeholder {
+  color: color-mix(in oklab, var(--muted) 70%, transparent);
+}
+
+input:focus-visible,
+textarea:focus-visible {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 4px color-mix(in oklab, var(--primary) 25%, transparent);
+}
+
+input.valid { border-color: var(--success); }
+input.invalid { border-color: var(--danger); }
+
+textarea { min-height: 120px; resize: vertical; }
+
+/* Range (rating) */
+.rating-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+input[type="range"] {
+  flex: 1;
+  accent-color: var(--primary);
+}
+#ratingValue {
+  font-weight: 800;
+  color: var(--primary-600);
+}
+
+/* ========== Buttons ========== */
+button {
+  background: linear-gradient(135deg, var(--primary), var(--primary-600));
+  color: white;
+  border: none;
+  padding: 12px 22px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: .2px;
+  transition: transform .18s ease, box-shadow .25s ease, filter .2s ease;
+  will-change: transform;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(79, 70, 229, 0.35);
+}
+
+button:active {
+  transform: translateY(0);
+  filter: brightness(.96);
+}
+
+button:disabled {
+  background: #a0aec0;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* ปุ่มย่อยในโซน API */
+.api-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+  flex-wrap: wrap;
+}
+.api-buttons button {
+  background: linear-gradient(135deg, var(--success), var(--mint));
+  font-size: 14px;
+  padding: 10px 16px;
+}
+
+/* ========== Messages ========== */
+.error {
+  color: var(--danger);
+  font-size: 14px;
+  margin-top: 6px;
+  min-height: 20px;
+}
+.success {
+  color: var(--success);
+  font-size: 14px;
+  margin-top: 6px;
+}
+#statusMessages { margin-bottom: 24px; }
+
+.status-message {
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  animation: slideIn .28s ease;
+  border: 1px solid var(--border);
+}
+.status-message.success {
+  background: color-mix(in oklab, #c6f6d5 80%, var(--card));
+  border-color: var(--success);
+  color: var(--text);
+}
+.status-message.error {
+  background: color-mix(in oklab, #fed7d7 80%, var(--card));
+  border-color: var(--danger);
+  color: var(--text);
+}
+.status-message.info {
+  background: color-mix(in oklab, #dbeafe 80%, var(--card));
+  border-color: #3b82f6;
+  color: var(--text);
+}
+
+/* ========== API Result Panel ========== */
+#apiResults {
+  background: color-mix(in oklab, #0b1220 92%, #000 8%);
+  color: #e5e7eb;
+  border: 1px solid color-mix(in oklab, #334155 70%, #000);
+  border-radius: 12px;
+  padding: 18px;
+  max-height: 420px;
+  overflow: auto;
+  white-space: pre-wrap;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  font-size: 14px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
+}
+
+/* ========== Animations ========== */
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
