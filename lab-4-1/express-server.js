@@ -3,7 +3,7 @@ const app = express();
 const PORT = 3001;
 
 // TODO: สร้างข้อมูลจำลอง students array เดียวกับใน http-server.js
-const students = [
+const students = [c
     { id: 1, name: 'สมชาย ใจดี', major: 'วิศวกรรมคอมพิวเตอร์', year: 3 },
     { id: 2, name: 'สมหญิง จริงใจ', major: 'วิทยาการคอมพิวเตอร์', year: 2 },
     { id: 3, name: 'สมศักดิ์ รักเรียน', major: 'เทคโนโลยีสารสนเทศ', year: 4 },
